@@ -1,0 +1,12 @@
+span {
+  display: block;
+}
+
+.bg-white{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4), 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+}
+
+::ng-deep .mat-progress-spinner circle,
+.mat-spinner circle {
+  @apply stroke-slate-700
+}
