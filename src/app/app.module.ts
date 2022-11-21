@@ -7,9 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthCoreModule } from './shared/services/auth-core/auth-core.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { Eror404Component } from './eror404/eror404.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, Eror404Component],
   imports: [
     BrowserModule,
     AppRoutingModule,

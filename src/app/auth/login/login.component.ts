@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { LayoutService } from 'src/app/shared/layout/layout.service';
 import { AuthCoreService } from 'src/app/shared/services/auth-core/auth-core.service';
 
@@ -18,10 +20,14 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   constructor(
     private authService: AuthCoreService,
-    private layoutService: LayoutService
+    private layoutService: LayoutService,
+    private router: Router,
+    private location: Location
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (localStorage.getItem('refresh_token')) this.location.back();
+  }
 
   login() {
     if (!this.loginForm.invalid) {
@@ -34,6 +40,7 @@ export class LoginComponent implements OnInit {
             color: 'bg-green-400',
             duration: 3000,
           });
+          this.router.navigate(['/dashboard']);
         })
         .catch((e) =>
           this.layoutService.showSnackBar({
