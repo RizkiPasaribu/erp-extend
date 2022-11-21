@@ -7,9 +7,8 @@ export interface AuthResponse {
 }
 
 export interface AuthData {
-  username: string;
-  password: string;
-  remember: boolean;
+  username?: string | null;
+  password?: string | null;
 }
 
 export interface RefreshTokenAndRemember {
@@ -17,8 +16,12 @@ export interface RefreshTokenAndRemember {
   refreshToken: string | null;
 }
 
-export interface AuthData {
+export type ProfileMe = {
+  firstName: string;
+  lastName: string;
   username: string;
-  password: string;
-  remember: boolean;
-}
+  uuid: string;
+  email: string;
+  photo?: string;
+  role: string;
+};

@@ -28,17 +28,20 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       this.authService
         .authenticate(this.loginForm.value)
-        .then((data) => {
-          localStorage.setItem('access_token', data.access_token);
-          localStorage.setItem('refresh_token', data.refresh_token);
-        })
-        .catch((e) => {
+        .then(() => {
           this.layoutService.showSnackBar({
-            message: String(e.error.detail),
-            color: 'bg-red-400',
+            message: 'Successfully Login',
+            color: 'bg-green-400',
             duration: 3000,
           });
         })
+        .catch((e) =>
+          this.layoutService.showSnackBar({
+            message: e,
+            color: 'bg-red-400',
+            duration: 5000,
+          })
+        )
         .finally(() => (this.isLoading = false));
     }
   }

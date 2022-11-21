@@ -8,7 +8,7 @@ import { SnackbarData } from './layout.type';
 export class LayoutService {
   constructor(private _snackBar: MatSnackBar) {}
 
-  showSnackBar(conf: SnackbarData) {
+  public showSnackBar(conf: SnackbarData) {
     this._snackBar.open(conf.message, '', {
       duration: conf.duration,
       panelClass: ['text-white', conf.color],
