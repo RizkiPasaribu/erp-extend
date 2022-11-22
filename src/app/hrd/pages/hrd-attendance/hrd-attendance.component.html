@@ -1,0 +1,183 @@
+<div class="h-screen p-10 overflow-auto">
+  <!-- cards -->
+  <div class="bg-white rounded-t-md px-4 py-5">
+    <div>
+      <div class="flex justify-between">
+        <div>
+          <div class="text-3xl">Attendance Today</div>
+          <!-- breadcumbs -->
+          <nav class="flex mt-2" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+              <li class="inline-flex items-center">
+                <a
+                  routerLink="#"
+                  class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li aria-current="page">
+                <div class="flex items-center">
+                  <svg
+                    class="w-6 h-6 text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <span
+                    class="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+                    >Attendance</span
+                  >
+                </div>
+              </li>
+            </ol>
+          </nav>
+        </div>
+
+        <button
+          class="h-[40px] w-[40px] flex items-center justify-center rounded-md self-center text-white bg-[#28a745] transition-all ou focus:outline hover:bg-[#188d33] outline-green-200"
+          matTooltip="Export Attendance Report"
+          matTooltipPosition="above"
+        >
+          <mat-icon class="material-icons-outlined">
+            sim_card_download
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="flex space-x-5 items-start">
+      <!-- form date -->
+      <mat-form-field appearance="outline" class="w-[300px]">
+        <mat-label>Searach by name</mat-label>
+        <input matInput placeholder="Type some name" />
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-[300px]">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" placeholder="DD/MM/YYYY" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="mt-2 flex space-x-4">
+        <button
+          mat-flat-button
+          class="delete text-red-500 hover:bg-red-500 hover:text-white transition-all"
+        >
+          <mat-icon class="material-icons-outlined">delete</mat-icon>
+          Delete
+        </button>
+        <button
+          mat-flat-button
+          class="bg-blue-600 text-white transition-all hover:bg-blue-800"
+        >
+          <mat-icon class="material-icons-outlined">filter_alt</mat-icon>
+          Filter
+        </button>
+      </div>
+    </div>
+
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="w-full shadow-none -mt-2 border-t border-solid"
+    >
+      <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="Name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.firstName }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let element">
+          <span
+            *ngIf="element.status === 'NO_STATUS'"
+            class="bg-gray-500 text-white text-[10px] py-1 px-2 rounded-md font-bold"
+          >
+            {{ element.status.replace("_", " ") }}
+          </span>
+          <span
+            *ngIf="!(element.status === 'NO_STATUS')"
+            class="bg-gray-900 text-white text-[10px] py-1 px-2 rounded-md font-bold"
+          >
+            {{ element.status.replace("_", " ") }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="Out Station">
+        <th mat-header-cell *matHeaderCellDef>Our Station</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isOutstation ? element.isOutstation : "-" }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Clock In">
+        <th mat-header-cell *matHeaderCellDef>Clock In</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.clockIn ? "clockIn" : "-" }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Clock Out">
+        <th mat-header-cell *matHeaderCellDef>Clock Out</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.clockOut ? element.clockOut : "-" }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Total Minutes Late">
+        <th mat-header-cell *matHeaderCellDef>Total Minutes Late</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.totalMinutesLate }}
+        </td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Total Hour">
+        <th mat-header-cell *matHeaderCellDef>Total Hour</th>
+        <td mat-cell *matCellDef="let element">{{ element.clockHour }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Detail">
+        <th mat-header-cell *matHeaderCellDef>Detail</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon
+            class="text-blue-500 cursor-pointer hover:text-blue-800 transition-all"
+            matTooltip="History Empoloyee"
+            matTooltipPosition="above"
+            >info</mat-icon
+          >
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        class="hover:bg-gray-100 transition-all"
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 30]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>

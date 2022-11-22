@@ -4,7 +4,7 @@
       <div class="text-3xl">Login To ERP</div>
       <form
         [formGroup]="loginForm"
-        (ngSubmit)="login()"
+        (ngSubmit)="submit()"
         class="mt-5 flex flex-col"
       >
         <mat-form-field appearance="outline">
@@ -22,9 +22,18 @@
             formControlName="password"
             matInput
             placeholder="Enter your password"
-            type="password"
+            [type]="isShowPassword ? 'text' : 'password'"
           />
-          <mat-icon matSuffix>visibility_off</mat-icon>
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            (click)="isShowPassword = !isShowPassword"
+          >
+            <mat-icon>{{
+              isShowPassword ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
           <mat-error> password is required </mat-error>
         </mat-form-field>
         <button

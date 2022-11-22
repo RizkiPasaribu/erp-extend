@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthCoreModule } from './shared/services/auth-core/auth-core.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Eror404Component } from './eror404/eror404.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [AppComponent, Eror404Component],
@@ -19,7 +20,7 @@ import { Eror404Component } from './eror404/eror404.component';
     AuthCoreModule,
     MatSnackBarModule,
   ],
-  providers: [],
+  providers: [{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,0 +1,16 @@
+mat-form-field.mat-form-field {
+  font-size: 13px;
+}
+.mat-divider:nth-child(2){
+  @apply mt-4 mb-2
+}
+.mat-divider:nth-child(4){
+  @apply -mt-2;
+}
+.delete {
+  border: 2px solid rgb(239 68 68) !important;
+}
+td:not(:first-child),th:not(:first-child) {
+
+  text-align: center !important;
+}

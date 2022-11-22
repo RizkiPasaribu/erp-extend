@@ -12,24 +12,26 @@ import { AuthCoreService } from 'src/app/shared/services/auth-core/auth-core.ser
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  isLoading = false;
+  isShowPassword = false;
+
   loginForm = new FormGroup({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
 
-  isLoading = false;
   constructor(
     private authService: AuthCoreService,
     private layoutService: LayoutService,
-    private router: Router,
-    private location: Location
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    if (localStorage.getItem('refresh_token')) this.location.back();
+    if (localStorage.getItem('refresh_token'))
+      this.router.navigate(['/hrd/attendance']);
   }
 
-  login() {
+  submit() {
     if (!this.loginForm.invalid) {
       this.isLoading = true;
       this.authService
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit {
             color: 'bg-green-400',
             duration: 3000,
           });
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/hrd/attendance']);
         })
         .catch((e) =>
           this.layoutService.showSnackBar({
