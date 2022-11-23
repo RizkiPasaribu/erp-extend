@@ -1,0 +1,65 @@
+<div class="text-3xl">Export Attendance Report</div>
+<div class="mt-5">
+  <span class="text-[12px] block">Select Date (Daily)</span>
+  <div class="w-full flex space-x-2">
+    <mat-form-field appearance="outline" class="-mt-1 w-[80%]">
+      <input
+        [formControl]="dateDaily"
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button
+      class="h-[40px] w-[10%] self-start flex items-center justify-center rounded-md text-white bg-blue-600 transition-all hover:bg-blue-800 mt-1"
+      matTooltip="Export To Excel (Daily)"
+      matTooltipPosition="above"
+      (click)="exportDaily(true)"
+    >
+      <mat-icon class="material-icons-outlined"> sim_card_download </mat-icon>
+    </button>
+
+    <button
+      class="h-[40px] w-[10%] self-start flex items-center justify-center rounded-md text-white bg-yellow-400 transition-all hover:bg-yellow-800 mt-1"
+      matTooltip="Export To PDF (Daily)"
+      matTooltipPosition="above"
+      (click)="exportDaily(false)"
+    >
+      <mat-icon class="material-icons-outlined"> picture_as_pdf </mat-icon>
+    </button>
+  </div>
+  <span class="text-[12px] block">Select Month & Year (Export Monthly)</span>
+  <div class="w-full flex space-x-2">
+    <app-datepicker-month-year class="w-[80%]"></app-datepicker-month-year>
+    <button
+      (click)="exportMonthly(true)"
+      class="h-[40px] w-[10%] self-start flex items-center justify-center rounded-md text-white bg-blue-600 transition-all hover:bg-blue-800 mt-1"
+      matTooltip="Export To Excel (Monthly)"
+      matTooltipPosition="above"
+    >
+      <mat-icon class="material-icons-outlined"> sim_card_download </mat-icon>
+    </button>
+
+    <button
+      (click)="exportMonthly(true)"
+      class="h-[40px] w-[10%] self-start flex items-center justify-center rounded-md text-white bg-yellow-400 transition-all hover:bg-yellow-800 mt-1"
+      matTooltip="Export To PDF (Monthly)"
+      matTooltipPosition="above"
+    >
+      <mat-icon class="material-icons-outlined"> picture_as_pdf </mat-icon>
+    </button>
+  </div>
+</div>
+<div class="flex justify-end">
+  <button
+    (click)="close()"
+    type="button"
+    mat-flat-button
+    class="close text-red-500 hover:bg-red-500 hover:text-white transition-all"
+  >
+    <mat-icon class="material-icons-outlined">arrow_back</mat-icon>
+    Close
+  </button>
+</div>

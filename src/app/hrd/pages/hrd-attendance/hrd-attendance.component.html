@@ -46,10 +46,9 @@
           class="h-[40px] w-[40px] flex items-center justify-center rounded-md self-center text-white bg-[#28a745] transition-all ou focus:outline hover:bg-[#188d33] outline-green-200"
           matTooltip="Export Attendance Report"
           matTooltipPosition="above"
+          (click)="AttendanceReport()"
         >
-          <mat-icon class="material-icons-outlined">
-            sim_card_download
-          </mat-icon>
+          <mat-icon class="material-icons-outlined"> description </mat-icon>
         </button>
       </div>
     </div>
@@ -179,7 +178,7 @@
         <th mat-header-cell *matHeaderCellDef>Detail</th>
         <td mat-cell *matCellDef="let element">
           <mat-icon
-            [routerLink]="'history-employe/' + element.userProfileUuid"
+            [routerLink]="'history-employee/' + element.userProfileUuid"
             class="text-blue-500 cursor-pointer hover:text-blue-800 transition-all"
             matTooltip="History Empoloyee"
             matTooltipPosition="above"

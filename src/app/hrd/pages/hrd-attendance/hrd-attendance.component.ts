@@ -5,6 +5,8 @@ import { AttendanceResponse } from '../../hrd.type';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAttendanceReportComponent } from '../../components/dialog/dialog-attendance-report/dialog-attendance-report.component';
 
 @Component({
   selector: 'app-hrd-attendance',
@@ -24,8 +26,11 @@ export class HrdAttendanceComponent implements OnInit {
     date: new FormControl(this.dateData),
   });
 
-  constructor(private hrdService: HrdService, private datePipe: DatePipe) {}
-  // let copyData = [...this.dataSource.data];
+  constructor(
+    private hrdService: HrdService,
+    private datePipe: DatePipe,
+    public dialog: MatDialog
+  ) {}
   ngOnInit(): void {
     this.hrdService
       .getAttendance(this.dateConvert(this.filterForm.value.date!))
@@ -67,7 +72,7 @@ export class HrdAttendanceComponent implements OnInit {
   }
 
   dateConvert(date: Date) {
-    return this.datePipe.transform(date, 'dd-MM-yyyy');
+    return this.datePipe.transform(date, 'yyyy-MM-dd');
   }
 
   clear() {
@@ -77,5 +82,11 @@ export class HrdAttendanceComponent implements OnInit {
     });
     this.dateData = this.filterForm.value.date!;
     this.ngOnInit();
+  }
+
+  AttendanceReport() {
+    this.dialog.open(DialogAttendanceReportComponent, {
+      width: '500px',
+    });
   }
 }
