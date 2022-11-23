@@ -7,9 +7,12 @@ import { AttendanceResponse } from './hrd.type';
 export class HrdService {
   constructor(private http: HttpClient) {}
 
-  public async getAttendance(): Promise<AttendanceResponse[]> {
+  public async getAttendance(date: any = ''): Promise<AttendanceResponse[]> {
+    console.log(date);
     return await lastValueFrom(
-      this.http.get<AttendanceResponse[]>('/api/v1/attendance-report-today')
+      this.http.get<AttendanceResponse[]>(
+        `/api/v1/attendance-report-today?date=${date}`
+      )
     );
   }
 }
