@@ -11,34 +11,68 @@ import { HrdService } from 'src/app/hrd/hrd.service';
 })
 export class DialogAttendanceReportComponent implements OnInit {
   dateDaily = new FormControl(new Date());
+  dateMonthYear: string = '';
 
   constructor(
-    private hrdService: HrdService,
+    // private hrdService: HrdService,
     private datePipe: DatePipe,
     public dialogRef: MatDialogRef<DialogAttendanceReportComponent>
   ) {}
 
   ngOnInit(): void {}
 
-  close() {
+  closeDialog() {
     this.dialogRef.close();
   }
 
-  exportDaily(isExcel: boolean) {
+  downloadDaily(isExcel: boolean) {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
     if (isExcel) {
-      console.log('excel');
+      link.setAttribute(
+        'href',
+        `/api/v1/export-attendance-today?token=${localStorage.getItem(
+          'access_token'
+        )}&date=${this.datePipe.transform(this.dateDaily.value, 'yyyy-MM-dd')}`
+      );
     } else {
-      this.hrdService.exportAttendancePdf(
-        this.datePipe.transform(this.dateDaily.value, 'yyyy-MM-dd')
+      link.setAttribute(
+        'href',
+        `/api/v1/export-attendance-pdf?token=${localStorage.getItem(
+          'access_token'
+        )}&date=${this.datePipe.transform(this.dateDaily.value, 'yyyy-MM-dd')}`
       );
     }
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    this.closeDialog();
   }
 
-  exportMonthly(isExcel: boolean) {
+  downloadMonthly(isExcel: boolean) {
+    const link = document.createElement('a');
+    link.setAttribute('target', '_blank');
     if (isExcel) {
-      console.log('excel');
+      link.setAttribute(
+        'href',
+        `/api/v1/export-attendance-monthly-excel?token=${localStorage.getItem(
+          'access_token'
+        )}&monthyear=${this.dateMonthYear}`
+      );
     } else {
-      console.log('pdf');
+      link.setAttribute(
+        'href',
+        `/api/v1/export-attendance-monthly-pdf?token=${localStorage.getItem(
+          'access_token'
+        )}&monthyear=${this.dateMonthYear}`
+      );
     }
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    this.closeDialog();
+  }
+  setYearMonthDate(tes: string) {
+    this.dateMonthYear = tes;
   }
 }

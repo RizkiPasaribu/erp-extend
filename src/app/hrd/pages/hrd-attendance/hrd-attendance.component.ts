@@ -33,7 +33,9 @@ export class HrdAttendanceComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.hrdService
-      .getAttendance(this.dateConvert(this.filterForm.value.date!))
+      .getAttendance(
+        this.datePipe.transform(this.filterForm.value.date!, 'yyyy-MM-dd')
+      )
       .then((data) => {
         this.dataSource.data = data;
         this.copyData = data;
@@ -66,16 +68,12 @@ export class HrdAttendanceComponent implements OnInit {
 
   submit() {
     this.hrdService.getAttendance(
-      this.dateConvert(this.filterForm.value.date!)
+      this.datePipe.transform(this.filterForm.value.date!, 'yyyy-MM-dd')
     );
     this.dateData = this.filterForm.value.date!;
   }
 
-  dateConvert(date: Date) {
-    return this.datePipe.transform(date, 'yyyy-MM-dd');
-  }
-
-  clear() {
+  clearForm() {
     this.filterForm.setValue({
       name: '',
       date: new Date(),

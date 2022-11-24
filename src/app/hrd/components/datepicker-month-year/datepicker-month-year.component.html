@@ -3,8 +3,10 @@
     matInput
     [matDatepicker]="dp"
     placeholder="Month and Year"
-    [formControl]="date"
+    [formControl]="dateInput"
+    (keyup)="shareDate()"
   />
+
   <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
   <mat-datepicker
     #dp
